@@ -1,4 +1,4 @@
-# Environment Checker
+# check-environment
 
 ## Description
 
