@@ -1,0 +1,6 @@
+---
+NODE_ENV:
+  required: true
+  type: string
+  format: "/([a-zA-Z])/'
+  log: true

@@ -1,5 +1,6 @@
 'use strict';
-const EnvironmentVariable = require('../../../lib/EnvironmentVariable.class');
+const EnvironmentVariable = require('../../../../lib/EnvironmentVariable.class');
+const exampleConfig = require('../../mocks/env.json');
 
 describe('Class: EnvironmentVariable', () => {
 
@@ -327,7 +328,111 @@ describe('Class: EnvironmentVariable', () => {
 			});
 
 
-		})
+		});
+
+		describe('Method: check', () => {
+			
+			beforeEach(() => {
+				process.env.NODE_ENV = 'development';
+				process.env.USE_AUTH = 'true';
+				process.env.AUTH_SERVER = 'http://blah.com';
+				process.env.AUTH_SERVER_PORT = '9000';
+				
+			});
+
+			it('should validate a valid string', () => {
+				let err, result;
+				try {
+					result = new EnvironmentVariable('NODE_ENV', exampleConfig.NODE_ENV);
+					result.check();
+				} catch(e) {
+					err = e;
+				}
+				expect(err).toBeUndefined();
+				expect(result.value).toBe('development');
+			});
+
+			it('should validate a valid boolean', () => {
+				let err, result;
+				try {
+					result = new EnvironmentVariable('USE_AUTH', exampleConfig.USE_AUTH);
+					result.check();
+				} catch(e) {
+					err = e;
+				}
+				expect(err).toBeUndefined();
+				expect(result.value).toBe(true);
+			});
+
+			it('should validate a valid number', () => {
+				let err, result;
+				try {
+					result = new EnvironmentVariable('AUTH_SERVER_PORT', exampleConfig.AUTH_SERVER_PORT);
+					result.check();
+				} catch(e) {
+					err = e;
+				}
+				expect(err).toBeUndefined();
+				expect(result.value).toBe(9000);
+			});
+
+			it('should throw an error if the value of an env var fails to match the proscribed format', () => {
+				let err, result;
+				try {
+					result = new EnvironmentVariable('AUTH_SERVER', exampleConfig.AUTH_SERVER);
+					result.check();
+				} catch(e) {
+					err = e;
+				}
+				expect(err).toBeDefined();
+				expect(result.value).toBeUndefined();
+				expect(result.valid).toBe(false)
+			});
+
+			it('should throw an error if the value of an env var is not convertible to the proscribed type, when said type is \'number\'', () => {
+				process.env.AUTH_SERVER_PORT = 'some port';
+				let err, result;
+				try {
+					result = new EnvironmentVariable('AUTH_SERVER_PORT', exampleConfig.AUTH_SERVER_PORT);
+					result.check();
+				} catch(e) {
+					err = e;
+				}
+				expect(err).toBeDefined();
+				expect(result.value).toBeUndefined();
+				expect(result.valid).toBe(false)
+			});
+
+			it('should throw an error if the value of an env var is not convertible to the proscribed type, when said type is \'boolean\'', () => {
+				process.env.USE_AUTH = 'correct';
+				let err, result;
+				try {
+					result = new EnvironmentVariable('USE_AUTH', exampleConfig.USE_AUTH);
+					result.check();
+				} catch(e) {
+					err = e;
+				}
+				expect(err).toBeDefined();
+				expect(result.value).toBeUndefined();
+				expect(result.valid).toBe(false)
+			});
+
+			it('should throw an error if the value of an env var is not convertible to the proscribed type, when said type is \'boolean\'', () => {
+				delete process.env.NODE_ENV;
+				let err, result;
+				try {
+					result = new EnvironmentVariable('NODE_ENV', exampleConfig.NODE_ENV);
+					result.check();
+				} catch(e) {
+					err = e;
+				}
+				expect(err).toBeDefined();
+				expect(result.value).toBeUndefined();
+				expect(result.valid).toBe(false)
+			});
+			
+		});
+		
 
 	})
 
