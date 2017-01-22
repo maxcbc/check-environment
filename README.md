@@ -7,7 +7,7 @@ This is a node.js module that will check currently set environment variables aga
 ## Getting started
 
 install using npm:
- - `npm i -S env-checker`
+ - `npm i -S check-environment`
 
 Add your `env.yaml` at the same level as your `package.json` and call this module at the top of the entrypoint to your app (i.e. `app.js` or `index.js`), like below;
 
