@@ -98,7 +98,6 @@ describe('Class: Checker', () => {
 			let err, result;
 			try {
 				result = new Checker({specLocation:'./test/unit/mocks/env.json'});
-				result.loadSpec()
 			} catch(e) {
 				err = e;
 			}
@@ -111,7 +110,6 @@ describe('Class: Checker', () => {
 			let err, result;
 			try {
 				result = new Checker({specLocation:'./test/unit/mocks/env.yaml'});
-				result.loadSpec()
 			} catch(e) {
 				err = e;
 			}
@@ -124,7 +122,6 @@ describe('Class: Checker', () => {
 			let err, result;
 			try {
 				result = new Checker({specLocation:'./test/unit/mocks/bad-json.json'});
-				result.loadSpec()
 			} catch(e) {
 				err = e;
 			}
@@ -136,7 +133,6 @@ describe('Class: Checker', () => {
 			let err, result;
 			try {
 				result = new Checker({specLocation:'./test/unit/mocks/bad-yaml.yaml'});
-				result.loadSpec()
 			} catch(e) {
 				err = e;
 			}
@@ -148,12 +144,52 @@ describe('Class: Checker', () => {
 			let err, result;
 			try {
 				result = new Checker({specLocation:'./test/unit/mocks/env.js'});
-				result.loadSpec()
 			} catch(e) {
 				err = e;
 			}
 			expect(err).toBeDefined();
 			expect(err instanceof Error);
 		})
+	});
+
+	describe('Method: check', () => {
+
+		it(`should return an object containing the specified environment variables if environment variables`, () => {
+			process.env.NODE_ENV = 'test';
+			let err, result;
+			try {
+				result = new Checker().check()
+			} catch(e) {
+				err = e;
+			}
+			expect(err).not.toBeDefined();
+			expect(result.NODE_ENV).toBe('test');
+
+		});
+
+		it(`should throw an error if the spec has not yet been loaded`, () => {
+			delete process.env.NODE_ENV;
+			let err, result;
+			try {
+				result = new Checker({autoLoad:false}).check()
+			} catch(e) {
+				err = e;
+			}
+			expect(err).toBeDefined();
+			expect(result).toBeUndefined();
+		});
+
+		it(`should throw an error if containing the specified environment variables if environment variables`, () => {
+			delete process.env.NODE_ENV;
+			let err, result;
+			try {
+				result = new Checker().check()
+			} catch(e) {
+				err = e;
+			}
+			expect(err).toBeDefined();
+			expect(result).toBeUndefined();
+		});
+
 	})
 });

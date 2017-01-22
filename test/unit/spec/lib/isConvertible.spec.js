@@ -1,5 +1,5 @@
 'use strict';
-const isConvertible = require('../../../../lib/isConvertible');
+const isConvertible = require('../../../../lib/is-convertible');
 
 describe('Module: isConvertible', () => {
 	

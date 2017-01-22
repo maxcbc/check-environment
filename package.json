@@ -1,6 +1,6 @@
 {
-  "name": "env-check",
-  "version": "0.0.1",
+  "name": "check-environment",
+  "version": "0.0.2",
   "description": "",
   "main": "index.js",
   "dependencies": {

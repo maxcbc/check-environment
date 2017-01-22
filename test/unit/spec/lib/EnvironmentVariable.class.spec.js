@@ -289,58 +289,59 @@ describe('Class: EnvironmentVariable', () => {
 
 			});
 		});
-
-		describe('Property: log', () => {
-			it('should default to false', () => {
-				let err, result;
-				try {
-					result = new EnvironmentVariable('NODE_ENV')
-				} catch(e) {
-					err = e;
-				}
-				expect(err).toBeUndefined();
-				expect(result).toBeDefined();
-				expect(result.log).toBe(false);
-			});
-
-			it('should accept a boolean and return it', () => {
-				let err, result;
-				try {
-					result = new EnvironmentVariable('NODE_ENV', {log: true})
-				} catch(e) {
-					err = e;
-				}
-				expect(err).toBeUndefined();
-				expect(result).toBeDefined();
-				expect(result.log).toBe(true);
-			});
-
-			it(`should throw a 'TypeError' if it is provided a non-boolean type`, () => {
-				let err, result;
-				try {
-					result = new EnvironmentVariable('NODE_ENV', {log: 'true'})
-				} catch(e) {
-					err = e;
-				}
-				expect(err).toBeDefined();
-				expect(result).toBeUndefined();
-				expect(err instanceof TypeError).toBe(true);
-			});
-
-
-		});
+// TODO: enable logging and custom logging
+		// describe('Property: log', () => {
+		// 	it('should default to false', () => {
+		// 		let err, result;
+		// 		try {
+		// 			result = new EnvironmentVariable('NODE_ENV')
+		// 		} catch(e) {
+		// 			err = e;
+		// 		}
+		// 		expect(err).toBeUndefined();
+		// 		expect(result).toBeDefined();
+		// 		expect(result.log).toBe(false);
+		// 	});
+		//
+		// 	it('should accept a boolean and return it', () => {
+		// 		let err, result;
+		// 		try {
+		// 			result = new EnvironmentVariable('NODE_ENV', {log: true})
+		// 		} catch(e) {
+		// 			err = e;
+		// 		}
+		// 		expect(err).toBeUndefined();
+		// 		expect(result).toBeDefined();
+		// 		expect(result.log).toBe(true);
+		// 	});
+		//
+		// 	it(`should throw a 'TypeError' if it is provided a non-boolean type`, () => {
+		// 		let err, result;
+		// 		try {
+		// 			result = new EnvironmentVariable('NODE_ENV', {log: 'true'})
+		// 		} catch(e) {
+		// 			err = e;
+		// 		}
+		// 		expect(err).toBeDefined();
+		// 		expect(result).toBeUndefined();
+		// 		expect(err instanceof TypeError).toBe(true);
+		// 	});
+		//
+		//
+		// });
 
 		describe('Method: check', () => {
 			
-			beforeEach(() => {
-				process.env.NODE_ENV = 'development';
-				process.env.USE_AUTH = 'true';
-				process.env.AUTH_SERVER = 'http://blah.com';
-				process.env.AUTH_SERVER_PORT = '9000';
+			afterEach(() => {
+				delete process.env.NODE_ENV;
+				delete process.env.USE_AUTH;
+				delete process.env.AUTH_SERVER;
+				delete process.env.AUTH_SERVER_PORT;
 				
 			});
 
 			it('should validate a valid string', () => {
+				process.env.NODE_ENV = 'development';
 				let err, result;
 				try {
 					result = new EnvironmentVariable('NODE_ENV', exampleConfig.NODE_ENV);
@@ -353,6 +354,7 @@ describe('Class: EnvironmentVariable', () => {
 			});
 
 			it('should validate a valid boolean', () => {
+				process.env.USE_AUTH = 'true';
 				let err, result;
 				try {
 					result = new EnvironmentVariable('USE_AUTH', exampleConfig.USE_AUTH);
@@ -365,6 +367,7 @@ describe('Class: EnvironmentVariable', () => {
 			});
 
 			it('should validate a valid number', () => {
+				process.env.AUTH_SERVER_PORT = '9000';
 				let err, result;
 				try {
 					result = new EnvironmentVariable('AUTH_SERVER_PORT', exampleConfig.AUTH_SERVER_PORT);
@@ -377,6 +380,7 @@ describe('Class: EnvironmentVariable', () => {
 			});
 
 			it('should throw an error if the value of an env var fails to match the proscribed format', () => {
+				process.env.AUTH_SERVER = 'http://blah.com';
 				let err, result;
 				try {
 					result = new EnvironmentVariable('AUTH_SERVER', exampleConfig.AUTH_SERVER);
