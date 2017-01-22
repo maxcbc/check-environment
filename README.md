@@ -1,6 +1,6 @@
 # check-environment
 
-[![Build Status](https://travis-ci.org/maxcbc/png-compare.svg?branch=develop)](https://travis-ci.org/maxcbc/check-environment)
+[![Build Status](https://travis-ci.org/maxcbc/check-environment.svg?branch=develop)](https://travis-ci.org/maxcbc/check-environment)
 
 ## Description
 
