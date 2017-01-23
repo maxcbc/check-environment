@@ -1,6 +1,6 @@
 {
   "name": "check-environment",
-  "version": "0.0.24",
+  "version": "0.1.0",
   "description": "A module to check environment variables against a predefined yaml config",
   "main": "index.js",
   "keywords": ["environment","variables", "environment variables", "env", "check"],
