@@ -1,6 +1,7 @@
 # check-environment
 
 [![Build Status](https://travis-ci.org/maxcbc/check-environment.svg?branch=develop)](https://travis-ci.org/maxcbc/check-environment)
+[![Known Vulnerabilities](https://snyk.io/test/github/maxcbc/check-environment/badge.svg)](https://snyk.io/test/github/maxcbc/check-environment)
 
 ## Description
 
