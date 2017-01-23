@@ -180,14 +180,18 @@ describe('Class: EnvironmentVariable', () => {
 			it('should return a RegExp object when supplied a string', () => {
 				let err, result;
 				try {
-					result = new EnvironmentVariable('THRESHOLD_PERCENTAGE', {format:`^[1-9][0-9]?$|^100$`})
+					result = new EnvironmentVariable('NODE_ENV', {format:`^(development|test|production)$`})
 				} catch(e) {
 					err = e;
 				}
 				expect(err).not.toBeDefined();
 				expect(result).toBeDefined();
 				expect(result.format instanceof RegExp).toBe(true);
-				expect(result.format.toString()).toBe('/^[1-9][0-9]?$|^100$/')
+				expect(result.format.toString()).toBe('/^(development|test|production)$/');
+				expect(result.format.test('development')).toBe(true);
+				expect(result.format.test('test')).toBe(true);
+				expect(result.format.test('production')).toBe(true);
+				expect(result.format.test('other')).toBe(false);
 
 			});
 
