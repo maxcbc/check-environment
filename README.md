@@ -67,13 +67,13 @@ Creates and returns an instance of a Checker passing in the user supplied config
 **Description**: the location of the environment specification (Can be YAML or JSON)
 
 #### Method: loadSpec() 
-**Description**: Loads the specification and checks it's validity
+**Description**: Loads the specification and checks it's validity.  
 **NOTES**: 
  - automatically run on instantiation if autoLoad is not set to true
 
 #### Method: check() => `Object`
 **Description**: Checks environment variables against
-**Returns**: An object with keys equal to the names of set and valid environment variables, and their values converted to their specified type.
+**Returns**: An object with keys equal to the names of set and valid environment variables, and their values converted to their specified type.  
 **NOTE**:
  - Requires `loadSpec()` to have been run first
  - automatically run on instantiation if autoLoad is not set to true
