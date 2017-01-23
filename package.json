@@ -1,8 +1,16 @@
 {
   "name": "check-environment",
-  "version": "0.0.22",
-  "description": "",
+  "version": "0.0.24",
+  "description": "A module to check environment variables against a predefined yaml config",
   "main": "index.js",
+  "keywords": ["environment","variables", "environment variables", "env", "check"],
+  "bugs": {
+    "url": "https://github.com/maxcbc/check-environment/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maxcbc/check-environment"
+  },
   "dependencies": {
     "yamljs": "^0.2.8"
   },
@@ -14,5 +22,5 @@
     "test": "nyc --reporter=lcov --reporter=text jasmine JASMINE_CONFIG_PATH=test/unit/support/jasmine.json"
   },
   "author": "Max Bladen-Clark",
-  "license": "ISC"
+  "license": "MIT"
 }

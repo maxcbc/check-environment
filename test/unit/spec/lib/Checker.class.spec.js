@@ -8,6 +8,10 @@ describe('Class: Checker', () => {
 
 	describe('Method: constructor', () => {
 
+		beforeEach(()=> {
+			process.env.NODE_ENV = 'development'
+		});
+
 		describe('Property: specLocation', () => {
 
 			it(`should default to the file 'env.yaml' in the current working directory`, () => {
@@ -21,7 +25,7 @@ describe('Class: Checker', () => {
 				expect(result).toBeDefined();
 				expect(result.specLocation).toBe(path.resolve('./env.yaml'))
 			});
-			
+
 			it('should be set to the corresponding value of the options object if set', () => {
 				let err, result;
 				try {
@@ -75,7 +79,7 @@ describe('Class: Checker', () => {
 				expect(result).toBeDefined();
 				expect(result.spec).toBeUndefined()
 			});
-			
+
 			it(`should be defined if autoLoad is set to 'true'`, () => {
 				let err, result;
 				try {
@@ -89,15 +93,19 @@ describe('Class: Checker', () => {
 			})
 
 		});
-		
+
 	});
-	
+
 	describe('Method: loadSpec', () => {
 
 		it('should set the spec property of the object to a parsed version of a valid JSON spec', () => {
 			let err, result;
 			try {
-				result = new Checker({specLocation:'./test/unit/mocks/env.json'});
+				result = new Checker({
+					specLocation:'./test/unit/mocks/env.json',
+					autoLoad: false
+				});
+				result.loadSpec();
 			} catch(e) {
 				err = e;
 			}
@@ -109,7 +117,11 @@ describe('Class: Checker', () => {
 		it('should set the spec property of the object to a parsed version of a valid JSON spec', () => {
 			let err, result;
 			try {
-				result = new Checker({specLocation:'./test/unit/mocks/env.yaml'});
+				result = new Checker({
+					specLocation:'./test/unit/mocks/env.yaml',
+					autoLoad: false
+				});
+				result.loadSpec();
 			} catch(e) {
 				err = e;
 			}
