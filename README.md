@@ -1,5 +1,7 @@
 # check-environment
 
+[![Build Status](https://travis-ci.org/maxcbc/check-environment.svg?branch=develop)](https://travis-ci.org/maxcbc/check-environment)
+
 ## Description
 
 This is a node.js module that will check currently set environment variables against a pre-defined specification.
